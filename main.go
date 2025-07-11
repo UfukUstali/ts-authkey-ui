@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"runtime"
 	"strings"
+	"time"
 )
 
 const port = "8924"
@@ -184,10 +185,9 @@ func main() {
 		tmpl.Execute(w, data)
 
 		go func() {
-			select {}
+			time.Sleep(1 * time.Second)
+			os.Exit(0)
 		}()
-
-		os.Exit(0)
 	})
 
 	url := fmt.Sprintf("http://localhost:%s", port)
