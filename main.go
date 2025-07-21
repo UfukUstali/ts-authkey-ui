@@ -171,7 +171,11 @@ func main() {
 			return
 		}
 
-		cmd := exec.Command("tailscale", "up", "--auth-key", authKey)
+		args := []string{"up", "--auth-key", authKey}
+		if runtime.GOOS == "windows" {
+			args = append(args, "--unattended")
+		}
+		cmd := exec.Command("tailscale", args...)
 		output, err := cmd.CombinedOutput()
 
 		if err != nil {
